@@ -3,11 +3,17 @@
         {{ $title }}
     </x-slot>
 
-    <a class="btn btn-danger mb-3" href="/servis-mobil/create" role="button">
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <a class="btn btn-danger mb-3" href="{{ route('servis-mobil.create') }}" role="button">
         Tambah Servis Mobil
     </a>
 
-    <table class="table table-bordered border-dark table-hover">
+    <table class="table table-bordered border-danger table-hover">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -35,7 +41,12 @@
                     <td>{{ $servismobil->biaya_servis }}</td>
                     <td>{{ $servismobil->keluhan }}</td>
                     <td>{{ $servismobil->status_servis }}</td>
-                    <td></td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" href="{{ route('servis-mobil.edit', $servismobil->id) }}"
+                            role="button">
+                            Edit
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

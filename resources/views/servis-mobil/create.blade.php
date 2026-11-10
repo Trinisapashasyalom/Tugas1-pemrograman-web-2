@@ -3,10 +3,6 @@
         {{ $title }}
     </x-slot>
 
-    <a class="btn btn-danger" href="/servis-mobil" role="button">
-        Back to Servis Mobil
-    </a>
-
     <form method="POST" action="{{ route('servis-mobil.store') }}">
         @csrf
 
@@ -81,7 +77,10 @@
             @enderror
         </div>
 
-        <a class="btn btn-danger" href="{{ route('servis-mobil.index') }}" role="button">Batal</a>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a class="btn btn-danger" href="{{ route('servis-mobil.index') }}" role="button">
+            Kembali
+        </a>
+
+        <button type="submit" class="btn btn-primary">Simpan Data</button>
     </form>
 </x-app>
