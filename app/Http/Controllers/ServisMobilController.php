@@ -12,11 +12,10 @@ class ServisMobilController extends Controller
      */
     public function index()
     {
-
-    $servismobils = Servismobil::all();
-
-    return view('servis-mobil.index', ['title' => 'Servis Mobil','servismobils' => $servismobils]);
-
+        return view('servis-mobil.index', [
+            'title' => 'Servis Mobil - AutoCare',
+            'servismobils' => Servismobil::latest()->get(),
+        ]);
     }
 
     /**
@@ -24,7 +23,9 @@ class ServisMobilController extends Controller
      */
     public function create()
     {
-         return view ('servis-mobil.create', ['title' => 'create Servis Mobil']);
+        return view('servis-mobil.create', [
+            'title' => 'Tambah Servis Mobil',
+        ]);
     }
 
     /**
@@ -32,9 +33,29 @@ class ServisMobilController extends Controller
      */
     public function store(Request $request)
     {
-         
- 
-    
+        $validated = $request->validate([
+            'nama_pelanggan' => 'required',
+            'no_polisi' => 'required',
+            'merek_mobil' => 'required',
+            'jenis_servis' => 'required',
+            'tanggal_servis' => 'required|date',
+            'biaya_servis' => 'required|numeric',
+            'keluhan' => 'required',
+            'status_servis' => 'required',
+        ], [
+            'nama_pelanggan.required' => 'Nama pelanggan wajib diisi.',
+            'no_polisi.required' => 'Nomor polisi wajib diisi.',
+            'merek_mobil.required' => 'Merek mobil wajib diisi.',
+            'jenis_servis.required' => 'Jenis servis wajib diisi.',
+            'tanggal_servis.required' => 'Tanggal servis wajib diisi.',
+            'biaya_servis.required' => 'Biaya servis wajib diisi.',
+            'keluhan.required' => 'Keluhan wajib diisi.',
+            'status_servis.required' => 'Status servis wajib diisi.',
+        ]);
+
+        Servismobil::create($validated);
+
+        return redirect()->route('servis-mobil.index');
     }
 
     /**
