@@ -111,8 +111,11 @@ class ServisMobilController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Servismobil $servismobil)
     {
-        //
+        $servismobil->delete();
+
+        return to_route('servis-mobil.index')
+            ->withSuccess('Data servis mobil berhasil dihapus.');
     }
 }

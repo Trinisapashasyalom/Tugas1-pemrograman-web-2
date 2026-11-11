@@ -1,7 +1,7 @@
 <x-app>
     <x-slot:title>
         {{ $title }}
-    </x-slot>
+    </x-slot:title>
 
     @if (session('success'))
         <div class="alert alert-success" role="alert">
@@ -16,23 +16,23 @@
     <table class="table table-bordered border-danger table-hover">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nama Pelanggan</th>
-                <th scope="col">Nomor Polisi</th>
-                <th scope="col">Merek Mobil</th>
-                <th scope="col">Jenis Servis</th>
-                <th scope="col">Tanggal Servis</th>
-                <th scope="col">Biaya Servis</th>
-                <th scope="col">Keluhan</th>
-                <th scope="col">Status Servis</th>
-                <th scope="col">Aksi</th>
+                <th>#</th>
+                <th>Nama Pelanggan</th>
+                <th>Nomor Polisi</th>
+                <th>Merek Mobil</th>
+                <th>Jenis Servis</th>
+                <th>Tanggal Servis</th>
+                <th>Biaya Servis</th>
+                <th>Keluhan</th>
+                <th>Status Servis</th>
+                <th>Aksi</th>
             </tr>
         </thead>
 
         <tbody>
             @foreach ($servismobils as $servismobil)
                 <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $servismobil->nama_pelanggan }}</td>
                     <td>{{ $servismobil->no_polisi }}</td>
                     <td>{{ $servismobil->merek_mobil }}</td>
@@ -41,11 +41,21 @@
                     <td>{{ $servismobil->biaya_servis }}</td>
                     <td>{{ $servismobil->keluhan }}</td>
                     <td>{{ $servismobil->status_servis }}</td>
+
                     <td>
-                        <a class="btn btn-warning btn-sm" href="{{ route('servis-mobil.edit', $servismobil->id) }}"
-                            role="button">
+                        <a class="btn btn-warning btn-sm mb-1" href="{{ route('servis-mobil.edit', $servismobil) }}">
                             Edit
                         </a>
+
+                        <form action="/servis-mobil/{{ $servismobil->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="return confirm('Yakin ingin menghapus data ini?')">
+                                Hapus
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

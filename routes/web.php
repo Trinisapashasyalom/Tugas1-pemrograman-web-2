@@ -22,3 +22,6 @@ Route::get('/servis-mobil/{servismobil}/edit', [ServisMobilController::class, 'e
 
 Route::put('/servis-mobil/{servismobil}', [ServisMobilController::class, 'update'])
     ->name('servis-mobil.update');
+
+Route::delete('/servis-mobil/{servismobil}', [ServisMobilController::class, 'destroy'])
+    ->name('servis-mobil.destroy');
